@@ -39,6 +39,16 @@ export class DBService extends Dexie {
     return from(this.packagings.delete(code));
   }
 
+  // Bulk read method for Packagings table
+  public getAllPackagings(): Observable<Packaging[]> {
+    return from(this.packagings.toArray());
+  }
+
+  // Bulk read method for Orders table
+  public getAllOrders(): Observable<Order[]> {
+    return from(this.orders.toArray());
+  }
+
   // CRUD methods for Orders table
   public addOrder(order: Order): Observable<number> {
     return from(this.orders.add(order));
