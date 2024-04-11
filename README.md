@@ -1,2 +1,4 @@
-# warehouse.angular
-A simple Angular SPA to handle warehouse packagings.
+
+# Warehouse Angular
+
+A simple Angular SPA to handle a warehouse packagings.
