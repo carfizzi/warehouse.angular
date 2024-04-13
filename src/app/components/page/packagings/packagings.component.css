@@ -1,0 +1,7 @@
+p#edit-toggle {
+    text-decoration: underline;
+}
+
+p#edit-toggle:hover {
+    cursor: pointer;
+}

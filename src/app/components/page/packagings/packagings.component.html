@@ -1,0 +1,25 @@
+<div class="p-2">
+    <div class="d-flex flex-row gap-3 justify-content-between align-items-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <h1>Packagings</h1>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <p id="edit-toggle" class="link-primary" (click)="toggleEditMode()">
+                @if (isEditModeOn) {
+                    Stop editing
+                }
+                @else { 
+                    Edit packagings
+                }
+            </p>        
+        </div>
+    </div>
+    
+    <app-packagings-container 
+        [packagings]="(packagings$ | async) ?? []" 
+        [isInputMode]="isEditModeOn"
+        (insertPackagingEvent)="addPackaging($event)" 
+        (deletePackagingEvent)="deletePackaging($event)" >
+    </app-packagings-container>
+
+</div>

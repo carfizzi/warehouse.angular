@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.edit-button {
+  font-size: 2rem;
+}
+
+.edit-button:hover {
+  cursor: pointer !important;
+}

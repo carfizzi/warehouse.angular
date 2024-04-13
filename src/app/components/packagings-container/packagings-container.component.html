@@ -1,0 +1,106 @@
+<div class="container text-center gap-3">
+    <div class="row">
+        <div class="col h5">
+            Code
+        </div>
+        <div class="col h5">
+            Label
+        </div>
+        @if (isInputMode) {
+        <div class="col">
+        </div>
+        }
+    </div>
+    @for (packaging of packagings; track $index) {
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center">
+            {{packaging.code}}
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+            {{packaging.label}}
+        </div>
+        @if (isInputMode) {
+        <div class="col d-flex justify-content-center align-items-center">
+            <i class="bi bi-dash-circle-fill text-danger edit-button" 
+                (click)="deletePackaging(packaging)"></i>
+        </div>
+        }
+    </div>
+    }
+    @if (isInputMode) {
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center">
+            <div class="form-floating">
+                <input class="form-control form-control-sm" type="text" id="code-input" placeholder="Code"
+                    [(ngModel)]="newPackagingCode">
+                <label for="code-input">Code</label>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+            <div class="form-floating">
+                <input class="form-control form-control-sm" type="text" id="label-input" placeholder="Label"
+                    [(ngModel)]="newPackagingLabel">
+                <label for="label-input">Label</label>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center">
+                <i class="bi bi-plus-circle-fill text-success edit-button"
+                    (click)="insertPackaging(newPackagingCode, newPackagingLabel)"></i>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<!-- 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Label</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (packaging of packagings; track $index) {
+        <tr>
+            <td>
+                {{packaging.code}}
+            </td>
+            <td>
+                {{packaging.label}}
+            </td>
+            <td>
+                @if (isInputMode) {
+                <i class="bi bi-dash-circle-fill text-danger" style="font-size: 1rem;"
+                    (click)="deletePackaging(packaging)"></i>
+                }
+            </td>
+        </tr>
+        }
+        @if (isInputMode) {
+        <tr>
+            <td>
+                <div class="form-floating form-control-sm">
+                    <input class="form-control form-control-sm" type="text" id="code-input" placeholder="Code"
+                        [(ngModel)]="newPackagingCode">
+                    <label for="code-input">Packaging code</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-floating form-control-sm">
+                    <input class="form-control form-control-sm" type="text" id="label-input" placeholder="Label"
+                        [(ngModel)]="newPackagingLabel">
+                    <label for="label-input">Packaging label</label>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-plus-circle-fill text-success" style="font-size: 1rem;"
+                        (click)="insertPackaging(newPackagingCode, newPackagingLabel)"></i>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table> -->
