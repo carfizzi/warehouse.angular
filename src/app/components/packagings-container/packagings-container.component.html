@@ -1,4 +1,18 @@
 <div class="container text-center gap-3">
+    @if (!packagings || packagings.length === 0 && !isInputMode) {
+        <div class="d-flex flex-column justify-content-center align-items-center gap-3">
+            <div class="display-4">
+                🤖 Ouch!
+            </div>
+            <div class="display-4">
+                Seems like no packaging is available!
+            </div>
+            <div class="display-6 text-muted">
+                Try clicking "Edit packagings" to insert a new one.
+            </div>
+        </div>
+    }
+    @else {
     <div class="row">
         <div class="col h5">
             Code
@@ -51,6 +65,7 @@
         </div>
     </div>
     }
+}
 </div>
 <!-- 
 <table class="table">

@@ -29,6 +29,8 @@ export class PackagingsContainerComponent {
 
     public insertPackaging(code: string, label: string): void {
         let newPackaging = new Packaging(code, label);
+        this.newPackagingCode = '';
+        this.newPackagingLabel = '';
         this.insertPackagingEvent.emit(newPackaging);
     }
  }
