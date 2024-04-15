@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
-import { from, Observable, queueScheduler, scheduled } from "rxjs";
+import { Observable, queueScheduler, scheduled, switchMap } from "rxjs";
 import { Order } from "../models/database/order";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class OrdersService extends Dexie {
   constructor() {
     super('warehouse-db');
     this.version(1).stores({
-      orders: '++id, packaging_code_ext, insertion_date'
+      orders: '++id, packaging_code_ext, insertion_date, quantity'
     });
 
     this.orders = this.table('orders');
@@ -29,13 +29,21 @@ export class OrdersService extends Dexie {
   /**
    * Deletes all orders
    */
-  public deleteAllOrders(): Observable<void> {
-    return scheduled(this.orders.clear(), queueScheduler);
+  public deleteAllOrders(): Observable<Order[]> {
+    return scheduled(this.orders.clear(), queueScheduler)
+      .pipe(
+        switchMap(res => this.getAllOrders())
+      );
   }
 
   // CRUD methods for Orders table
-  public addOrder(order: Order): Observable<number> {
-    return scheduled(this.orders.add(order), queueScheduler);
+  public addOrder(order: Order): Observable<Order[]> {
+    return scheduled(this.orders.add(order), queueScheduler)
+    .pipe(
+      switchMap(res => {
+        return this.getAllOrders();
+      })
+    );
   }
 
   public getOrder(id: number): Observable<Order | undefined> {

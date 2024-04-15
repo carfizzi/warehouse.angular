@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+#quantity-input {
+  border-right: 0px;
+  border-left: 0px;
+  border-radius: 0px;
+  text-align: center;
+}
+
+#quantity-input:focus {
+  outline: none;
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.btn-operation-minus {
+  border-radius: var(--bs-border-radius) 0px 0px var(--bs-border-radius);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-right: 0px;
+}
+
+.btn-operation-plus {
+  border-radius: 0px var(--bs-border-radius) var(--bs-border-radius) 0px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-left: 0px;
+}

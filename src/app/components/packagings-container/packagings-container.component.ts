@@ -28,6 +28,9 @@ export class PackagingsContainerComponent {
     }
 
     public insertPackaging(code: string, label: string): void {
+        if (code === '' || label === '')
+            return;
+        
         let newPackaging = new Packaging(code, label);
         this.newPackagingCode = '';
         this.newPackagingLabel = '';

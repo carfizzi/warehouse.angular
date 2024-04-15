@@ -1,0 +1,9 @@
+<ul id="packagings-total-list">
+    @for (packagingGroup of (orders | totalOrders); track $index) {
+    <li>
+        {{packagingGroup.type | packagingTypeToLabel:packagings}}: <span>{{packagingGroup.total}}</span>
+    </li>
+    }
+</ul>
+
+<button class="btn btn-primary">Notify manager</button>

@@ -34,15 +34,6 @@ export class PackagingsService extends Dexie {
       )
   }
 
-  /**
-   * Gets an Observable that emits when a new packaging is added
-   * @returns Observable of added packaging
-   */
-  public getPackagingAddedSignal(): Observable<Packaging[]> {
-    return this.packagingAddedSubject.pipe(
-      switchMap(() => this.getAllPackagings())
-    );
-  }
 
   public getPackaging(code: string): Observable<Packaging | undefined> {
     return scheduled(this.packagings.get(code), queueScheduler);
