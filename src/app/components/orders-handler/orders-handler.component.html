@@ -2,8 +2,8 @@
 <div class="container">
     <div class="row gap-3">
         <div class="col-sm">
-            <select class="form-select" aria-label="Default select example" [(ngModel)]="newPackagingCode" (ngModelChange)="pippo()">
-                <option [value]="undefined">Select a packaging</option>
+            <select class="form-select" aria-label="Packaging select" name="packaging-select" [(ngModel)]="newPackagingCode">
+                <option [value]="undefined" [disabled]="true">Select a packaging</option>
                 @for (packaging of packagings; track $index) {
                 <option [value]="packaging.code">{{packaging.code}} - {{packaging.label}}</option>
                 }
@@ -25,7 +25,7 @@
             </span>
         </div>
         <div class="col-sm d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-success" (click)="insertNewOrder(newPackagingCode, newOrderQuantity)">Confirm</button>
+            <button type="button" class="btn btn-success" (click)="insertNewOrder(newPackagingCode, newOrderQuantity)">Add packagings</button>
         </div>
     </div>
 

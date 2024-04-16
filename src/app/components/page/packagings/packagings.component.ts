@@ -4,6 +4,8 @@ import { Packaging } from '../../../models/database/packaging';
 import { PackagingsService } from '../../../services/packaging.service';
 import { AsyncPipe } from '@angular/common';
 import { PackagingsContainerComponent } from "../../packagings-container/packagings-container.component";
+import { Order } from '../../../models/database/order';
+import { OrdersService } from '../../../services/orders.service';
 
 @Component({
   selector: 'app-packagings',
@@ -13,16 +15,19 @@ import { PackagingsContainerComponent } from "../../packagings-container/packagi
   imports: [AsyncPipe, PackagingsContainerComponent]
 })
 export class PackagingsComponent implements OnInit {
-  public packagings$: Observable<Packaging[]> = new Observable<Packaging[]>;
+  public packagings$: Observable<Packaging[]> = new Observable<Packaging[]>();
+  public orders$: Observable<Order[]> = new Observable<Order[]>();
   public isEditModeOn: boolean = false;
   public mockPackaging: Packaging = { code: '5678B', label: 'Big Pallet' } as Packaging;
 
   constructor(
-    private packagingsService: PackagingsService
+    private packagingsService: PackagingsService,
+    private ordersService: OrdersService,
   ) { }
 
   public ngOnInit(): void {
-    this.packagings$ = this.packagingsService.getAllPackagings()
+    this.packagings$ = this.packagingsService.getAllPackagings();
+    this.orders$ = this.ordersService.getAllOrders();
   }
 
   public addPackaging(packaging: Packaging): void {

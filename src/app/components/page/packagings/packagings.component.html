@@ -17,6 +17,7 @@
     
     <app-packagings-container 
         [packagings]="(packagings$ | async) ?? []" 
+        [orders]="(orders$ | async) ?? []"
         [isInputMode]="isEditModeOn"
         (insertPackagingEvent)="addPackaging($event)" 
         (deletePackagingEvent)="deletePackaging($event)" >

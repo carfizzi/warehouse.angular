@@ -30,9 +30,4 @@ export class OrdersHandlerComponent {
         this.insertOrderEvent.emit(newOrder);
     }
 
-    pippo() {
-        console.log(JSON.stringify(this.newPackagingCode));
-
-    }
-
  }

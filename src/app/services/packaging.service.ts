@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
-import { map, Observable, queueScheduler, scheduled, Subject, switchMap, tap } from "rxjs";
+import { Observable, queueScheduler, scheduled, switchMap } from "rxjs";
 import { Packaging } from "../models/database/packaging";
 
 @Injectable({
@@ -8,7 +8,6 @@ import { Packaging } from "../models/database/packaging";
 })
 export class PackagingsService extends Dexie {
   public packagings: Dexie.Table<Packaging, string>;
-  private packagingAddedSubject = new Subject<Packaging>();
   
   constructor() {
     super('warehouse-db');
@@ -28,8 +27,7 @@ export class PackagingsService extends Dexie {
     return scheduled(this.packagings.add(packaging), queueScheduler)
       .pipe(
         switchMap(res => {
-          this.packagings = this.table('packagings');
-          return this.packagings.toArray();
+          return this.getAllPackagings();
         })
       )
   }
@@ -46,9 +44,8 @@ export class PackagingsService extends Dexie {
   public deletePackaging(code: string): Observable<Packaging[]> {
     return scheduled(this.packagings.delete(code), queueScheduler)
       .pipe(
-        switchMap(res => {
-          this.packagings = this.table('packagings');
-          return this.packagings.toArray();
+        switchMap(() => {
+          return this.getAllPackagings();
         })
       );
   }

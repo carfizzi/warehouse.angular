@@ -6,4 +6,18 @@
     }
 </ul>
 
-<button class="btn btn-primary">Notify manager</button>
+<div>
+    @if ((orders | ordersDateRange)) {
+    {{(orders | ordersDateRange)!.minDate | date:'longDate'}}
+    @if ( ((orders | ordersDateRange)!.minDate | date:'longDate') !== ((orders | ordersDateRange)!.maxDate |
+    date:'longDate')) {
+    - {{(orders | ordersDateRange)!.maxDate | date:'longDate'}}
+    }
+    }
+</div>
+
+<a class="d-none" #emailSender [href]="mailToHref"></a>
+
+@if ((orders | totalOrders).length > 0) {
+<button class="btn btn-primary" (click)="notifyManagerAndCleanOrders()">Notify manager</button>
+}
