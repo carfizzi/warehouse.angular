@@ -1,0 +1,23 @@
+@for (toast of toastService.toasts; track $index) {
+<span class="m-2">
+    <ngb-toast [autohide]="true" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)">
+        <ng-template ngbToastHeader>
+            <div class="me-auto">
+                @switch (toast.type) {
+                @case (ToastType.Success) {
+                <i class="bi bi-check-circle-fill text-success"></i>
+                }
+                @case (ToastType.Error) {
+                <i class="bi bi-x-circle-fill text-danger"></i>
+                }
+                @case (ToastType.Warn) {
+                <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                }
+                }
+                {{toast.header}}
+            </div>
+        </ng-template>
+        {{toast.body}}
+    </ngb-toast>
+</span>
+}

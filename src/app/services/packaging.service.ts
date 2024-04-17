@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
-import { Observable, queueScheduler, scheduled, switchMap } from "rxjs";
+import { catchError, Observable, of, queueScheduler, scheduled, switchMap, tap, throwError } from "rxjs";
 import { Packaging } from "../models/database/packaging";
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Packaging } from "../models/database/packaging";
 })
 export class PackagingsService extends Dexie {
   public packagings: Dexie.Table<Packaging, string>;
-  
+
   constructor() {
     super('warehouse-db');
     this.version(1).stores({
@@ -19,19 +19,20 @@ export class PackagingsService extends Dexie {
   }
 
   /**
-   * Adds packaging
+   * Adds new packaging
    * @param packaging 
-   * @returns Inserted packaging code
+   * @returns Observable with new packaging code or error
    */
-  public addPackaging(packaging: Packaging): Observable<Packaging[]> {
-    return scheduled(this.packagings.add(packaging), queueScheduler)
+  public addPackaging(packaging: Packaging): Observable<string | Error> {
+    let additionOperationResult = this.packagings.add(packaging)
+      .catch(err => new Error(err.message));
+    return scheduled(additionOperationResult, queueScheduler)
       .pipe(
-        switchMap(res => {
-          return this.getAllPackagings();
+        catchError(error => {
+          return throwError(() => error);
         })
       )
   }
-
 
   public getPackaging(code: string): Observable<Packaging | undefined> {
     return scheduled(this.packagings.get(code), queueScheduler);
@@ -41,11 +42,13 @@ export class PackagingsService extends Dexie {
     return scheduled(this.packagings.update(code, changes), queueScheduler);
   }
 
-  public deletePackaging(code: string): Observable<Packaging[]> {
-    return scheduled(this.packagings.delete(code), queueScheduler)
+  public deletePackaging(code: string): Observable<void | Error> {
+    let packagingDeletionOperationResult = this.packagings.delete(code)
+      .catch(err => new Error(err.message));
+    return scheduled(packagingDeletionOperationResult, queueScheduler)
       .pipe(
-        switchMap(() => {
-          return this.getAllPackagings();
+        catchError(error => {
+          return throwError(() => error);
         })
       );
   }
@@ -55,7 +58,14 @@ export class PackagingsService extends Dexie {
    * @returns All available packagings 
    */
   public getAllPackagings(): Observable<Packaging[]> {
-    return scheduled(this.packagings.toArray(), queueScheduler);
+    return scheduled(this.packagings.toArray(), queueScheduler)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching packagings:', error);
+          // Handle error gracefully and return an empty array to prevent breaking the stream
+          return of([]);
+        })
+      );;
   }
 }
 
