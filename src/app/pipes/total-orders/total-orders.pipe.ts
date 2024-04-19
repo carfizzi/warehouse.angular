@@ -1,6 +1,6 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { Order } from '../models/database/order';
-import { TotalOrder } from '../models/total-order';
+import { Order } from '../../models/database/order';
+import { TotalOrder } from '../../models/total-order';
 
 @Pipe({
   name: 'totalOrders',

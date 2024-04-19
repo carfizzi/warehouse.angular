@@ -1,6 +1,6 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { Order } from '../models/database/order';
-import { DateRange } from '../models/date-range';
+import { Order } from '../../models/database/order';
+import { DateRange } from '../../models/date-range';
 
 @Pipe({
   name: 'ordersDateRange',

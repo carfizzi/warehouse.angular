@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ToastInfo } from '../models/toast-info';
-import { ToastType } from '../enums/toast-type';
+import { ToastInfo } from '../../models/toast-info';
+import { ToastType } from '../../enums/toast-type';
 
 @Injectable({
   providedIn: 'root'

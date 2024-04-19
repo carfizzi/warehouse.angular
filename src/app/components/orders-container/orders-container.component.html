@@ -1,8 +1,10 @@
 <ul id="packagings-total-list">
     @for (packagingGroup of (orders | totalOrders); track $index) {
+    @if (packagingGroup.type | packagingTypeToLabel:packagings) {
     <li>
         {{packagingGroup.type | packagingTypeToLabel:packagings}}: <span>{{packagingGroup.total}}</span>
     </li>
+    }
     }
 </ul>
 

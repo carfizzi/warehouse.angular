@@ -3,10 +3,10 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { OrdersContainerComponent } from "../../orders-container/orders-container.component";
 import { Observable } from 'rxjs';
 import { Order } from '../../../models/database/order';
-import { OrdersService } from '../../../services/orders.service';
+import { OrdersService } from '../../../services/orders/orders.service';
 import { OrdersHandlerComponent } from "../../orders-handler/orders-handler.component";
 import { Packaging } from '../../../models/database/packaging';
-import { PackagingsService } from '../../../services/packaging.service';
+import { PackagingsService } from '../../../services/packagings/packagings.service';
 import { NgbAlert, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

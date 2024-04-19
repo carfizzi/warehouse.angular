@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ToastService } from '../../services/toast.service';
+import { ToastService } from '../../services/toast/toast.service';
 import { ToastType } from '../../enums/toast-type';
 import { NgbToast, NgbToastHeader } from '@ng-bootstrap/ng-bootstrap';
 

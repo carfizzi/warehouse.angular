@@ -22,7 +22,11 @@ jobs:
         run: npm install
         working-directory: ''
 
+      - name: Run tests
+        run: npm run test-ci
+
       - name: Build Angular app
+        if: success()
         run: npm run build
         working-directory: ''
 

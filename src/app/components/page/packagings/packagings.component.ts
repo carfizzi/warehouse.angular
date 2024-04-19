@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import { Packaging } from '../../../models/database/packaging';
-import { PackagingsService } from '../../../services/packaging.service';
+import { PackagingsService } from '../../../services/packagings/packagings.service';
 import { AsyncPipe } from '@angular/common';
 import { PackagingsContainerComponent } from "../../packagings-container/packagings-container.component";
 import { Order } from '../../../models/database/order';
-import { OrdersService } from '../../../services/orders.service';
-import { ToastService } from '../../../services/toast.service';
+import { OrdersService } from '../../../services/orders/orders.service';
+import { ToastService } from '../../../services/toast/toast.service';
 import { ToastType } from '../../../enums/toast-type';
 
 @Component({

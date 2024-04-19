@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
 import { catchError, Observable, of, queueScheduler, scheduled, switchMap, tap, throwError } from "rxjs";
-import { Packaging } from "../models/database/packaging";
+import { Packaging } from "../../models/database/packaging";
 
 @Injectable({
   providedIn: 'root'

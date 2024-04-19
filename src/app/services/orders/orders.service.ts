@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
 import { Observable, queueScheduler, scheduled, switchMap } from "rxjs";
-import { Order } from "../models/database/order";
+import { Order } from "../../models/database/order";
 
 @Injectable({
   providedIn: 'root'

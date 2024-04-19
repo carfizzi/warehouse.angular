@@ -1,10 +1,10 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Order } from '../../models/database/order';
-import { TotalOrdersPipe } from "../../pipes/total-orders.pipe";
-import { PackagingTypeToLabelPipe } from '../../pipes/packaging-type-to-label.pipe';
+import { TotalOrdersPipe } from "../../pipes/total-orders/total-orders.pipe";
+import { PackagingTypeToLabelPipe } from '../../pipes/packaing-type-to-label/packaging-type-to-label.pipe';
 import { Packaging } from '../../models/database/packaging';
-import { OrdersDateRangePipe } from "../../pipes/orders-date-range.pipe";
+import { OrdersDateRangePipe } from "../../pipes/orders-date-range/orders-date-range.pipe";
 import { TotalOrder } from '../../models/total-order';
 
 @Component({
