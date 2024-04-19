@@ -1,18 +1,15 @@
-<div class="p-2">
-    <div class="display-1">Orders</div>
+<div class="display-1">Orders</div>
 
-    <app-orders-container [orders]="(orders$ | async) ?? []"
-        [packagings]="(packagings$ | async) ?? []" (cleanOrdersEvent)="emptyOrder()"></app-orders-container>
-
-    <div class="d-flex justify-content-center align-items-center w-100">
-        <hr class="w-75" />
-    </div>
-
-    <app-orders-handler [packagings]="(packagings$ | async) ?? []"
-        (insertOrderEvent)="addOrder($event)"></app-orders-handler>
-
-    <button class="btn btn-danger" type="button" (click)="open(content)">Clean all orders</button>
+<app-orders-handler [packagings]="(packagings$ | async) ?? []"
+    (insertOrderEvent)="addOrder($event)"></app-orders-handler>
+<div class="d-flex justify-content-center align-items-center w-100">
+    <hr class="w-75" />
 </div>
+
+<app-orders-container [orders]="(orders$ | async) ?? []" [packagings]="(packagings$ | async) ?? []"
+    (cleanOrdersEvent)="emptyOrder()"></app-orders-container>
+
+<button class="btn btn-danger" type="button" (click)="open(content)">Clean all orders</button>
 
 <ng-template #content let-modal>
     <div class="modal-header">

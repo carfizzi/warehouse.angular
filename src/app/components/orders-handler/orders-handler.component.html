@@ -16,7 +16,7 @@
                     <i class="bi bi-dash-circle"></i>
                 </button>
             </span>
-            <input type="text" class="form-control input-number" id="quantity-input" [(ngModel)]="newOrderQuantity">
+            <input type="number" class="form-control input-number" id="quantity-input" [(ngModel)]="newOrderQuantity">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary btn-operation-plus"
                     (click)="newOrderQuantity = newOrderQuantity + 1">
