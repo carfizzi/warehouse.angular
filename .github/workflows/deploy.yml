@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Angular app
         if: success()
-        run: npm run build
+        run: npm run build-ci
         working-directory: ''
 
       - name: Deploy
