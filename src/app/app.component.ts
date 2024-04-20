@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/page/header/header.component";
 import { FooterComponent } from "./components/page/footer/footer.component";
 import { ToastsComponent } from "./components/toasts/toasts.component";
+import { ThemeService } from './services/theme.service';
 
 @Component({
     selector: 'app-root',
@@ -11,8 +12,14 @@ import { ToastsComponent } from "./components/toasts/toasts.component";
     styleUrl: './app.component.css',
     imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastsComponent]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'warehouse';
 
-  public isDarkThemeOn: boolean = false;
+  constructor(
+    private themeService: ThemeService
+  ) { }
+
+  ngOnInit(): void {
+    this.themeService.setUserTheme();
+  }
 }

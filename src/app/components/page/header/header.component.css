@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+
+.theme-nav-entry:hover {
+  cursor: pointer;
+}

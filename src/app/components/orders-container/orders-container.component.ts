@@ -1,11 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Order } from '../../models/database/order';
 import { TotalOrdersPipe } from "../../pipes/total-orders/total-orders.pipe";
 import { PackagingTypeToLabelPipe } from '../../pipes/packaing-type-to-label/packaging-type-to-label.pipe';
 import { Packaging } from '../../models/database/packaging';
 import { OrdersDateRangePipe } from "../../pipes/orders-date-range/orders-date-range.pipe";
 import { TotalOrder } from '../../models/total-order';
+import { NgbAlert, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-orders-container',
@@ -18,6 +19,7 @@ import { TotalOrder } from '../../models/total-order';
         TotalOrdersPipe,
         PackagingTypeToLabelPipe,
         OrdersDateRangePipe,
+        NgbAlert
     ],
     providers: [OrdersDateRangePipe, TotalOrdersPipe, DatePipe, PackagingTypeToLabelPipe]
 })
@@ -39,14 +41,17 @@ export class OrdersContainerComponent {
         private datePipe: DatePipe,
         private packagingTypeToLabelPipe: PackagingTypeToLabelPipe,
         private changeDetectorRef: ChangeDetectorRef,
+        private modalService: NgbModal
     ) { }
 
-    public async notifyManagerAndCleanOrders(): Promise<void> {
+    public notifyManagerAndCleanOrders(): void {
         let totalOrders = this.totalOrdersPipe.transform(this.orders);
         let orderDateRange = this.ordersDateRangePipe.transform(this.orders);
 
-        if (!orderDateRange)
+        if (!orderDateRange) {
+
             return;
+        }
 
         this.mailToHref = `mailto:warehouse.manager@email.com?subject=${this.buildOrderPeriodString(orderDateRange?.minDate, orderDateRange?.maxDate)}&body=${this.buildOrderPeriodString(orderDateRange?.minDate, orderDateRange?.maxDate)}:${this.newLineChar}${this.buildOrderBody(totalOrders, this.packagings)}`;
         this.changeDetectorRef.detectChanges();
@@ -55,6 +60,16 @@ export class OrdersContainerComponent {
 
         this.cleanOrdersEvent.emit();
     }
+
+    public openModal(content: TemplateRef<any>): void {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result) => {
+                this.notifyManagerAndCleanOrders();
+			},
+			(reason) => {
+			},
+		);
+	}
 
 
     private buildOrderPeriodString(minDate: Date, maxDate: Date): string {

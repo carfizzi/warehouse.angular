@@ -1,25 +1,64 @@
-<ul id="packagings-total-list">
-    @for (packagingGroup of (orders | totalOrders); track $index) {
-    @if (packagingGroup.type | packagingTypeToLabel:packagings) {
-    <li>
-        {{packagingGroup.type | packagingTypeToLabel:packagings}}: <span>{{packagingGroup.total}}</span>
-    </li>
-    }
-    }
-</ul>
-
-<div>
-    @if ((orders | ordersDateRange)) {
-    {{(orders | ordersDateRange)!.minDate | date:'longDate'}}
-    @if ( ((orders | ordersDateRange)!.minDate | date:'longDate') !== ((orders | ordersDateRange)!.maxDate |
-    date:'longDate')) {
-    - {{(orders | ordersDateRange)!.maxDate | date:'longDate'}}
-    }
-    }
+<div class="display-6" style="padding-bottom: 0.5rem;">Packaging list</div>
+<div class="container">
+    <div class="row gap-4">
+        <div class="col">
+            <ul id="packagings-total-list">
+                @for (packagingGroup of (orders | totalOrders); track $index) {
+                @if (packagingGroup.type | packagingTypeToLabel:packagings) {
+                <li>
+                    {{packagingGroup.type | packagingTypeToLabel:packagings}}: <span>{{packagingGroup.total}}</span>
+                </li>
+                }
+                }
+            </ul>
+        </div>
+        @if ((orders | totalOrders).length > 0) {
+            <div class="col-sm">
+                <button class="btn btn-primary" (click)="openModal(emailModal)"><i class="bi bi-envelope-fill"></i>
+                    Notify
+                    manager</button>
+    
+            </div>
+            }
+    </div>
+    <div class="row m-4" style="margin-left: 0 !important;">
+        @if ((orders | ordersDateRange)) {
+        <div class="col-sm">
+            <b>Period:</b>
+            {{(orders | ordersDateRange)!.minDate | date:'longDate'}}
+            @if ( ((orders | ordersDateRange)!.minDate | date:'longDate') !== ((orders | ordersDateRange)!.maxDate |
+            date:'longDate')) {
+            - {{(orders | ordersDateRange)!.maxDate | date:'longDate'}}
+            }
+        </div>
+        }
+    </div>
 </div>
 
-<a class="d-none" #emailSender [href]="mailToHref"></a>
+<!-- email sending confirmation modal -->
+<ng-template #emailModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Notify manager</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <ngb-alert [dismissible]="false" type="warning">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <p>
+                            <strong><i class="bi bi-exclamation-triangle-fill"></i> Warning!</strong>
+                        </p>
+                        <p>The action you're trying to perform will open the default e-mail app and flush the current packaging list!</p>
+                        <p>Are you sure you want to proceed?</p>
+                    </div>
+                </ngb-alert>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Send message</button>
+    </div>
+</ng-template>
 
-@if ((orders | totalOrders).length > 0) {
-<button class="btn btn-primary" (click)="notifyManagerAndCleanOrders()">Notify manager</button>
-}
+<a class="d-none" #emailSender [href]="mailToHref"></a>

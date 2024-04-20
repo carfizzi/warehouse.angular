@@ -12,20 +12,20 @@
         <div class="d-flex justify-content-center align-items-center col-sm">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary btn-operation-minus"
-                    [disabled]="newOrderQuantity <= 1" (click)="newOrderQuantity = newOrderQuantity - 1">
+                    [disabled]="newOrderQuantity <= 1" (click)="subctractOneQuantity($event)">
                     <i class="bi bi-dash-circle"></i>
                 </button>
             </span>
             <input type="number" class="form-control input-number" id="quantity-input" [(ngModel)]="newOrderQuantity">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary btn-operation-plus"
-                    (click)="newOrderQuantity = newOrderQuantity + 1">
+                    (click)="addOneQuantity($event)">
                     <i class="bi bi-plus-circle"></i>
                 </button>
             </span>
         </div>
         <div class="col-sm d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-success" (click)="insertNewOrder(newPackagingCode, newOrderQuantity)">Add packagings</button>
+            <button type="button" class="btn btn-success" (click)="insertNewOrder(newPackagingCode, newOrderQuantity)"><i class="bi bi-plus-lg"></i> Add packagings</button>
         </div>
     </div>
 

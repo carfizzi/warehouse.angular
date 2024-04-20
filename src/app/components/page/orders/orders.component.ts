@@ -44,14 +44,14 @@ export class OrdersComponent implements OnInit {
         this.orders$ = this.ordersService.deleteAllOrders();
     }
 
-    open(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
+    public openModal(content: TemplateRef<any>): void {
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+            (result) => {
                 this.emptyOrder();
-			},
-			(reason) => {
-			},
-		);
-	}
+            },
+            (reason) => {
+            },
+        );
+    }
 
 }

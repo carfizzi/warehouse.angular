@@ -2,15 +2,21 @@
 
 <app-orders-handler [packagings]="(packagings$ | async) ?? []"
     (insertOrderEvent)="addOrder($event)"></app-orders-handler>
+@if (((orders$ | async) ?? []).length > 0) {
 <div class="d-flex justify-content-center align-items-center w-100">
     <hr class="w-75" />
 </div>
 
 <app-orders-container [orders]="(orders$ | async) ?? []" [packagings]="(packagings$ | async) ?? []"
     (cleanOrdersEvent)="emptyOrder()"></app-orders-container>
+<div class="container">
+    <button class="btn btn-danger" type="button" (click)="openModal(content)"><i class="bi bi-trash3-fill"></i> Clean
+        packagings
+        list</button>
+</div>
+}
 
-<button class="btn btn-danger" type="button" (click)="open(content)">Clean all orders</button>
-
+<!-- delete confirmation modal -->
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Clean orders</h4>
