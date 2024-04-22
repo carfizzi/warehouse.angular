@@ -8,6 +8,9 @@ import { OrdersHandlerComponent } from "../../orders-handler/orders-handler.comp
 import { Packaging } from '../../../models/database/packaging';
 import { PackagingsService } from '../../../services/packagings/packagings.service';
 import { NgbAlert, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../../services/toast/toast.service';
+import { PackagingTypeToLabelPipe } from '../../../pipes/packaing-type-to-label/packaging-type-to-label.pipe';
+import { ToastType } from '../../../enums/toast-type';
 
 @Component({
     selector: 'app-orders',
@@ -19,6 +22,7 @@ import { NgbAlert, NgbModal } from '@ng-bootstrap/ng-bootstrap';
         OrdersContainerComponent,
         OrdersHandlerComponent,
         NgbAlert,
+        PackagingTypeToLabelPipe,
     ]
 })
 export class OrdersComponent implements OnInit {
@@ -29,6 +33,7 @@ export class OrdersComponent implements OnInit {
         private ordersService: OrdersService,
         private packagingsService: PackagingsService,
         private modalService: NgbModal,
+        private toastService: ToastService,
     ) { }
 
     public ngOnInit(): void {
@@ -38,10 +43,13 @@ export class OrdersComponent implements OnInit {
 
     public addOrder(order: Order): void {
         this.orders$ = this.ordersService.addOrder(order);
+        this.toastService.show('Success', `Correctly registered ${order.quantity} pieces for packaging ${order.packaging_code_ext}`, ToastType.Success);
     }
 
     public emptyOrder(): void {
         this.orders$ = this.ordersService.deleteAllOrders();
+        this.toastService.show('Success', 'Correctly emptied current shipments!', ToastType.Success);
+
     }
 
     public openModal(content: TemplateRef<any>): void {

@@ -5,16 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { Order } from '../../models/database/order';
 import { ToastService } from '../../services/toast/toast.service';
 import { ToastType } from '../../enums/toast-type';
+import { CanAddOrderPipe } from "../../pipes/can-add-order/can-add-order.pipe";
 
 @Component({
     selector: 'app-orders-handler',
     standalone: true,
-    imports: [
-        CommonModule, FormsModule
-    ],
     templateUrl: './orders-handler.component.html',
     styleUrl: './orders-handler.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule, FormsModule,
+        CanAddOrderPipe
+    ]
 })
 export class OrdersHandlerComponent {
     @Input() packagings: Packaging[] = [];
@@ -24,7 +26,7 @@ export class OrdersHandlerComponent {
     public newPackagingCode: string | undefined;
     public newOrderQuantity: number = 1;
 
-    constructor (
+    constructor(
         private toastService: ToastService,
     ) { }
 
@@ -33,8 +35,13 @@ export class OrdersHandlerComponent {
             this.toastService.show('Warning', 'Please select a packaging!', ToastType.Warn);
             return;
         }
+        console.log(this.newOrderQuantity)
+        if (this.newOrderQuantity <= 0 || this.newOrderQuantity >= 1000) {
+            this.toastService.show('Warning', 'Please provide a realistic quantity!', ToastType.Warn);
+            return;
+        }
 
-        let newOrder: Order = new Order(newPackagingCode, new Date(), quantity);
+        let newOrder: Order = new Order(newPackagingCode, new Date(), Math.floor(quantity));
         this.insertOrderEvent.emit(newOrder);
     }
 
@@ -52,5 +59,4 @@ export class OrdersHandlerComponent {
     private onEnterKeyPressed(event: KeyboardEvent) {
         this.insertNewOrder(this.newPackagingCode, this.newOrderQuantity);
     }
-
- }
+}

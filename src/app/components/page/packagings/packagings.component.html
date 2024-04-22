@@ -6,10 +6,10 @@
         <p id="edit-toggle" class="link-
         primary" (click)="toggleEditMode()">
             @if (isEditModeOn) {
-                <i class="bi bi-floppy-fill"></i>
+            <button type="button" class="btn btn-outline-secondary"><i class="bi bi-floppy-fill"></i> Stop</button>
             }
             @else {
-                <i class="bi bi-pencil-fill"></i>
+            <button type="button" class="btn btn-outline-secondary"><i class="bi bi-pencil-fill"></i> Edit</button>
             }
         </p>
     </div>

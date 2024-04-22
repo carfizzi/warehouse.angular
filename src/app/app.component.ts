@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/page/header/header.component";
-import { FooterComponent } from "./components/page/footer/footer.component";
 import { ToastsComponent } from "./components/toasts/toasts.component";
 import { ThemeService } from './services/theme.service';
 
@@ -10,7 +9,7 @@ import { ThemeService } from './services/theme.service';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastsComponent]
+    imports: [RouterOutlet, HeaderComponent, ToastsComponent]
 })
 export class AppComponent implements OnInit {
   title = 'warehouse';

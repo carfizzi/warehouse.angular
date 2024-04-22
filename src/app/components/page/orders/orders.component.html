@@ -1,7 +1,24 @@
 <div class="display-1">Orders</div>
 
-<app-orders-handler [packagings]="(packagings$ | async) ?? []"
+@if(((packagings$ | async) ?? []).length > 0) {
+    <app-orders-handler [packagings]="(packagings$ | async) ?? []"
     (insertOrderEvent)="addOrder($event)"></app-orders-handler>
+}
+@else {
+    <div class="d-flex flex-column justify-content-center align-items-center gap-3">
+        <div class="display-4">
+            🤖 Hey!
+        </div>
+        <div class="display-4">
+            Seems like no packaging is available!
+        </div>
+        <div class="display-6 text-muted">
+            Try the "Packagings" section to insert at least a new one.
+        </div>
+    </div>
+}
+
+
 @if (((orders$ | async) ?? []).length > 0) {
 <div class="d-flex justify-content-center align-items-center w-100">
     <hr class="w-75" />
