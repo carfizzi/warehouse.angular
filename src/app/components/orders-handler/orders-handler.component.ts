@@ -35,7 +35,6 @@ export class OrdersHandlerComponent {
             this.toastService.show('Warning', 'Please select a packaging!', ToastType.Warn);
             return;
         }
-        console.log(this.newOrderQuantity)
         if (this.newOrderQuantity <= 0 || this.newOrderQuantity >= 1000) {
             this.toastService.show('Warning', 'Please provide a realistic quantity!', ToastType.Warn);
             return;

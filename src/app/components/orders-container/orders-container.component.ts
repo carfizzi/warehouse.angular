@@ -81,7 +81,7 @@ export class OrdersContainerComponent {
     private buildOrderBody(totalOrders: TotalOrder[], packagings: Packaging[]) {
         let ordersString: string = '';
         totalOrders.forEach(group => {
-            ordersString += `${this.packagingTypeToLabelPipe.transform(group.type, packagings)}: ${group.total}${this.newLineChar}`;
+            ordersString += `(${group.type}) - ${this.packagingTypeToLabelPipe.transform(group.type, packagings)}: ${group.total}${this.newLineChar}`;
         });
 
         return ordersString;
